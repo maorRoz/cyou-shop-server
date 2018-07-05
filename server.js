@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3000; 
-//const routerMessage = require('./messageRoute');
+const routerStore = require('./storeRoute');
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -10,8 +10,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-//app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
 
-//app.use('/',routerMessage);
+app.use('/',routerStore);
 
 app.listen(port, () => console.log('listening on port '+port+'!'));
