@@ -30,3 +30,9 @@ exports.deleteStore = function(id){
     console.log('trying to delete store with id: '+id);
     return storeModel.findByIdAndRemove(id);
 }
+
+exports.updateStore = function(id,newStore){
+    console.log('trying to update store with id: '+id);
+    console.log('new store entry :'+ JSON.stringify(newStore));
+    return storeModel.findByIdAndUpdate(id,newStore,{new: true});
+}

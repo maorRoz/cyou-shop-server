@@ -64,3 +64,25 @@ exports.removeStore = (event,context,callback) =>{
       body: 'Could not delete the store.'
     }))
 }
+
+exports.editStore = (event,context,callback) =>{
+  context.callbackWaitsForEmptyEventLoop = false;
+
+  connectToDatabase()
+  .then(() =>{
+    console.log('body given to update :'+event.body);
+    const data = JSON.parse(event.body);
+    store.updateStore(data.id,data.newStore).then(()=>
+    callback(null,{
+      statusCode: 200,
+      body: event.body
+    }))
+  })
+  .catch(err => 
+    callback(null,{
+      statusCode: err.statusCode || 500,
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'Could not update the store.'
+    }))
+  
+}

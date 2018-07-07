@@ -29,3 +29,10 @@ functions:
           path: store
           method: delete
           cors: true
+  editStore:
+    handler: handler.editStore
+    events:
+      - http:
+          path: store
+          method: put
+          cors: true
