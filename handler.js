@@ -21,24 +21,24 @@ exports.getStore = (event, context, callback) => {
       }))
 };
 
-exports.createStore = (events,context,callback) =>{
+exports.createStore = (event,context,callback) =>{
   context.callbackWaitsForEmptyEventLoop = false;
 
   connectToDatabase()
   .then(() =>{
-      const postedStore = events.body;
-      store.createStore(postedStore)
-      .then(store =>  
-        callback(null,{
+      const postedStore = JSON.parse(event.body);
+      store.insertStore(postedStore).then(()=>
+      callback(null,{
           statusCode: 200,
-          body: JSON.stringify(store)    
-        }))
+          headers: { 'Content-Type': 'text/plain' },
+          body: 'store created successfully!'    
+      }))
     })
     .catch(err => 
       callback(null,{
         statusCode: err.statusCode || 500,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Could not create the store'
+        body: 'Could not create the store.'
       }))
 
 }

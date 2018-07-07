@@ -10,12 +10,14 @@ const StoreSchema = new mongoose.Schema({
 const storeModel = mongoose.model('Store', StoreSchema);
 
 exports.insertStore = function(postedStore){
+    console.log('trying to create store: '+JSON.stringify(postedStore));
     return storeModel.create(postedStore);
 }
 
 exports.getAllStores = function(){
     return storeModel.find({},function(err,doc){
         if(err){
+            console.log('err retrieving all the stores : '+err);
             return err;
         }
         else{
