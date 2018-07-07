@@ -25,3 +25,8 @@ exports.getAllStores = function(){
         }
     });
 }
+
+exports.deleteStore = function(id){
+    console.log('trying to delete store with id: '+id);
+    return storeModel.findByIdAndRemove(id);
+}

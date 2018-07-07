@@ -42,3 +42,25 @@ exports.createStore = (event,context,callback) =>{
       }))
 
 }
+
+
+exports.removeStore = (event,context,callback) =>{
+  context.callbackWaitsForEmptyEventLoop = false;
+
+  connectToDatabase()
+  .then(() =>{
+    console.log('body given to delete :'+event.body);
+    const idToRemove = JSON.parse(event.body).id;
+    store.deleteStore(idToRemove).then(()=>
+    callback(null,{
+      statusCode: 200,
+      body: event.body
+    }))
+  })
+  .catch(err => 
+    callback(null,{
+      statusCode: err.statusCode || 500,
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'Could not delete the store.'
+    }))
+}

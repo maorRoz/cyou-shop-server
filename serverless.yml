@@ -2,11 +2,11 @@ service: cyou-shop-server
 
 provider:
   name: aws
-  runtime: nodejs6.10 # set node.js runtime
- # memorySize: 128 # set the maximum memory of the Lambdas in Megabytes
- # timeout: 10 # the timeout is 10 seconds (default is 6 seconds)
- # stage: dev # setting the env stage to dev, this will be visible in the routes
- # region: us-east-1
+  runtime: nodejs6.10 
+  memorySize: 128 
+  timeout: 10 
+  stage: dev 
+  region: us-east-1
 functions:
   getStore:
     handler: handler.getStore
@@ -14,9 +14,18 @@ functions:
       - http:
           path: store
           method: get
+          cors: true
   createStore:
     handler: handler.createStore
     events:
       - http:
           path: store
           method: post
+          cors: true
+  removeStore:
+    handler: handler.removeStore
+    events:
+      - http:
+          path: store
+          method: delete
+          cors: true
